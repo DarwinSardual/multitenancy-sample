@@ -18,11 +18,20 @@ class SetDBConfigPerTenant
     public function handle($request, Closure $next)
     {
         $user = Auth::user();
-        config(['database.connections.tenant' => [
-            'host' => '127.0.0.1',
-            'password' => '',
-            'database' => 'multitenancy_tenant1',
-            'username' => 'root'
+        config(['database.connections.tenant1' => [
+          "driver" => "mysql",
+          "host" => "127.0.0.1",
+          "port" => "3306",
+          "database" => "multitenancy_tenant1",
+          "username" => "devuser",
+          "password" => "devuser",
+          "unix_socket" => "",
+          "charset" => "utf8mb4",
+          "collation" => "utf8mb4_unicode_ci",
+          "prefix" => "",
+          "prefix_indexes" => true,
+          "strict" => true,
+          "engine" => null,
         ]]);
 
         return $next($request);

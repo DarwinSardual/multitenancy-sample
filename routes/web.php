@@ -19,4 +19,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/check', 'ArticleController@index')->middleware('tenancy');
+Route::get('/article', 'ArticleController@index')->middleware('tenancy');

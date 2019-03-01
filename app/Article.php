@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
 
-    // protected $connection = 'mysql';
+    // protected $connection = 'tenant';
     public function __construct(){
-      // $this->connection = config('database.connections.mysql');
-      $this->connection = config('tenant');
+      // dd(config('database.connections.tenant1'));
+      $this->connection = 'mysql';
     }
 
 }
