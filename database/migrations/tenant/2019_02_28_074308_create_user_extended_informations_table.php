@@ -20,7 +20,7 @@ class CreateUserExtendedInformationsTable extends Migration
             $table->timestamps();
 
             $table->primary('user_id');
-            // $table->foreign('user_id')->references('id')->on('multitenancy_main.users');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

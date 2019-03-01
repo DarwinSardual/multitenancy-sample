@@ -18,21 +18,29 @@ class SetDBConfigPerTenant
     public function handle($request, Closure $next)
     {
         $user = Auth::user();
-        config(['database.connections.tenant1' => [
-          "driver" => "mysql",
-          "host" => "127.0.0.1",
-          "port" => "3306",
-          "database" => "multitenancy_tenant1",
-          "username" => "devuser",
-          "password" => "devuser",
-          "unix_socket" => "",
-          "charset" => "utf8mb4",
-          "collation" => "utf8mb4_unicode_ci",
-          "prefix" => "",
-          "prefix_indexes" => true,
-          "strict" => true,
-          "engine" => null,
-        ]]);
+        $connection = [];
+
+        if($user->tenant != null){
+          $connection['database.connections.tenant'] = [
+            "driver" => "mysql",
+            "host" => $user->tenant->db_host,
+            "port" => $user->tenant->db_port,
+            "database" => $user->tenant->db_name,
+            "username" => $user->tenant->db_username,
+            "password" => $user->tenant->db_password,
+            "unix_socket" => "",
+            "charset" => "utf8mb4",
+            "collation" => "utf8mb4_unicode_ci",
+            "prefix" => "",
+            "prefix_indexes" => true,
+            "strict" => true,
+            "engine" => null,
+          ];
+        }else{
+          $connection['database.connections.tenant'] = config('database.connections.mysql');
+        }
+
+        config($connection);
 
         return $next($request);
     }
